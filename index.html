@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор прибыли с криптовалюты</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f3f3f3; }
+    .container { max-width: 400px; margin: auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 6px; border: 1px solid #ccc; font-size: 16px; }
+    button { background-color: #4CAF50; color: white; cursor: pointer; }
+    button:hover { background-color: #45a049; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Крипто калькулятор прибыли</h2>
+    <input type="number" id="buyPrice" placeholder="Цена покупки ($)" step="0.0001">
+    <input type="number" id="sellPrice" placeholder="Цена продажи ($)" step="0.0001">
+    <input type="number" id="amount" placeholder="Количество монет" step="1">
+    <input type="number" id="rate" placeholder="Курс доллара (KZT)" step="1">
+    <button onclick="calculateProfit()">Рассчитать</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateProfit() {
+      const buy = parseFloat(document.getElementById('buyPrice').value);
+      const sell = parseFloat(document.getElementById('sellPrice').value);
+      const amount = parseFloat(document.getElementById('amount').value);
+      const rate = parseFloat(document.getElementById('rate').value);
+
+      if (isNaN(buy) || isNaN(sell) || isNaN(amount) || isNaN(rate)) {
+        document.getElementById('result').innerText = 'Пожалуйста, заполните все поля.';
+        return;
+      }
+
+      const totalBuy = buy * amount;
+      const totalSell = sell * amount;
+      const profitUSD = totalSell - totalBuy;
+      const profitKZT = profitUSD * rate;
+
+      document.getElementById('result').innerText = `Прибыль: ${profitUSD.toFixed(2)} USD / ${profitKZT.toFixed(0)} KZT`;
+    }
+  </script>
+</body>
+</html>
